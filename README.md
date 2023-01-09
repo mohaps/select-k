@@ -19,6 +19,28 @@ Doing the same with ```k::Bottom``` will get you the bottom K from the candidate
 ### One Shot Helpers
 Helper functions ```kTop::compute()``` and ```kBottom::compute()``` are provided for one shot calls where the entire list of candidates is available e.g. in a ```std::vector```
 
+```
+std::vector<Point> results;
+k::Bottom<Point, int>::compute(std::back_inserter(results), 4, inputs.begin(), inputs.end(), sqEuclidian);
+```
+
+### Scoring Function and ScoreType
+
+The scoring function returns a ScoreType for a Candidate
+* ```k::Top``` preserves the K top score candidates
+* ```k::Bottom``` preserves the K lowest score candidates
+
+Custom scoring functions can be passed in the constructor
+```
+auto sqEuclidian = [](const Point& p){
+    // custom scoring function (square of euclidean distance from origin)
+    return p.first * p.first + p.second * p.second;
+};
+k::Bottom<Point, int> nearest(4, sqEuclidian);
+````
+
+See ```src/select_k_sample.cpp``` for usage details
+
 ### Build and Run
 Sample ```Makefile``` and code (```src/select_k_usage```) is included.
 
@@ -51,22 +73,6 @@ Trying one-shot compute ...
  => 2,2
 ```
 
-### Scoring Function and ``ScoreType```
-
-The scoring function returns a ScoreType for a Candidate
-* ```k::Top``` preserves the K top score candidates
-* ```k::Bottom``` preserves the K lowest score candidates
-
-Custom scoring functions can be passed in the constructor
-```
-auto sqEuclidian = [](const Point& p){
-    // custom scoring function (square of euclidean distance from origin)
-    return p.first * p.first + p.second * p.second;
-};
-k::Bottom<Point, int> nearest(4, sqEuclidian);
-````
-
-See ```src/select_k_sample.cpp``` for usage details
 
 
 ## Complexity 
