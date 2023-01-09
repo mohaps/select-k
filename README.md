@@ -4,24 +4,35 @@ Single file header-only C++20 library to implement k-nearest / k-best type logic
 ## Sample Usage:
 Just include the 
 ```
-    auto scoringFunction = [](const Candidate& c) { /* return an int score */ }
+    auto scoringFunction = [](const Candidate& c) { 
+        /* return an int score */ 
+    };
     k::Top<Candidate, int> selector(k, scoringFunction);
     
     for (auto c : candidates) {
         selector.offer(c);
     }
     
-    // now selector has min(k, canddiates.size()) best candidates (top scores from scoring function)
+    // now selector has min(k, canddiates.size()) best candidates 
+    // (top scores from scoring function)
 ```
 
 Doing the same with ```k::Bottom``` will get you the bottom K from the candidates
 
 ### One Shot Helpers
-Helper functions ```kTop::compute()``` and ```kBottom::compute()``` are provided for one shot calls where the entire list of candidates is available e.g. in a ```std::vector```
+Helper functions ```kTop::compute()``` and ```kBottom::compute()``` are provided for one shot calls where the entire list of 
+candidates is available e.g. in a ```std::vector```
+
+This is the sample code for computin k-nearest points to origin.
 
 ```
 std::vector<Point> results;
-k::Bottom<Point, int>::compute(std::back_inserter(results), 4, inputs.begin(), inputs.end(), sqEuclidian);
+k::Bottom<Point, int>::compute(
+    std::back_inserter(results), 
+    4, 
+    inputs.begin(), inputs.end(),
+    sqEuclidian
+);
 ```
 
 ### Scoring Function and ScoreType
