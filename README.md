@@ -2,7 +2,8 @@
 Single file header-only C++20 library to implement k-nearest / k-best type logic
 
 ## Sample Usage:
-Just include the 
+Just include  ```select_k/select_k.h```
+and do
 ```
     auto scoringFunction = [](const Candidate& c) { 
         /* return an int score */ 
